@@ -30,10 +30,3 @@ ataque3 = {"nombre":"Cataclismo Oscuro",
 
 ataques = [ataque1, ataque2, ataque3]
 
-def calculo1 (ataques):
-  daño = r.randint(ataques['daño_min'], ataques['daño_max'])
-  if daño == ataques['daño_max']:
-    print("¡Golpe Crítico!")
-    daño = daño * 2
-    villano['vida'] -= daño
-    persona['energia'] -= ataques['costo_energia']
