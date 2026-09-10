@@ -345,14 +345,14 @@ while True:
   if derrota:
       while True:
         continuar = input("¿Vuelves a bajar? s/n ").lower()
-      if continuar == "s" or continuar == "n":
-        break
-      print("Responda s o n")
+        if continuar == "s" or continuar == "n":
+          break
+        print("Responda s o n")
 
-      if continuar == "n":
-        print("\nDices que no.")
-        print("Nadie sabe qué pasa cuando alguien dice que no. Nunca había ocurrido.")
-        break
+        if continuar == "n":
+          print("\nDices que no.")
+          print("Nadie sabe qué pasa cuando alguien dice que no. Nunca había ocurrido.")
+          break
 
   if enemigo['vida'] <= 0:
     print(ARTE_VICTORIA)
