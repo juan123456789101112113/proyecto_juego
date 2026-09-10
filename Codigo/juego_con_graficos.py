@@ -1,6 +1,104 @@
-#Juan Esteban Barsenas Rivas, Jessica Benitez Carmona
-
 import random as r
+
+# ---------------------------------------------------------------
+# Arte ASCII del juego
+# ---------------------------------------------------------------
+
+BANNER = """
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║              EL  PACTO  DE  LAS  TRES  PUERTAS               ║
+║                                                              ║
+║                            Umbra                             ║
+╚══════════════════════════════════════════════════════════════╝
+          ┌───────┐        ┌───────┐        ┌───────┐
+          │ ╭───╮ │        │ ╭───╮ │        │ ╭───╮ │
+          │ │   │ │        │ │   │ │        │ │   │ │
+          │ │ ● │ │        │ │ ● │ │        │ │ ● │ │
+          │ ╰───╯ │        │ ╰───╯ │        │ ╰───╯ │
+          └───────┘        └───────┘        └───────┘
+           PUERTA I        PUERTA II        PUERTA III
+"""
+
+ARTE_BANE = """
+                        ▄▄▄▄▄▄▄▄▄▄▄
+                     ▄█▀           ▀█▄
+                    █▌   ▄▄     ▄▄   ▐█
+                    █▌  ▐██▌   ▐██▌  ▐█
+                    █▌   ▀▀     ▀▀   ▐█
+                     █▄  ╱▔▔▔▔▔╲  ▄█
+                      ▀█▄ ║║║║║ ▄█▀
+                        ▀▀▀▀▀▀▀▀▀
+                      ┃┃┃┃┃┃┃┃┃┃┃┃┃
+"""
+
+ARTE_AZAZEL = """
+              ╲╲╲                       ╱╱╱
+            ╲╲  ╲╲╲                 ╱╱╱  ╱╱
+              ╲╲╲  ╲╲╲    ▄▄▄    ╱╱╱  ╱╱╱
+                 ╲╲╲   ▄█▀   ▀█▄   ╱╱╱
+                      █▌ ◣   ◢ ▐█
+                      █▌   ▼   ▐█
+                       █▄ ═══ ▄█
+                        ▀█▄▄▄█▀
+                     ░░░ ▀▀▀▀▀ ░░░
+"""
+
+ARTE_MEPHISTO = """
+                  ╲╲                     ╱╱
+                   ╲╲╲                 ╱╱╱
+                    ╲╲╲▄▄▄▄▄▄▄▄▄▄▄▄▄╱╱╱
+                     ▄█▀           ▀█▄
+                    █▌  ◤◥       ◤◥  ▐█
+                    █▌   ●       ●   ▐█
+                    █▌    ╲_____╱    ▐█
+                     ▀█▄  ╱╲╱╲╱╲╱╲  ▄█▀
+                       ▀▀▀▀▀▀▀▀▀▀▀▀▀
+"""
+
+ARTE_VICTORIA = """
+              ╔════════════════════════════════╗
+              ║   L A   S U P E R F I C I E    ║
+              ╚════════════════════════════════╝
+                   ░░░░░░░░░░░░░░░░░░░░░
+                  ░░  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ░░
+                 ░░  █               █  ░░
+                 ░░  █    ABIERTA    █  ░░
+                 ░░  █               █  ░░
+                  ░░ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ░░
+"""
+
+ARTE_DERROTA = """
+              ╔════════════════════════════════╗
+              ║  D E U D A   P E N D I E N T E ║
+              ╚════════════════════════════════╝
+                        ▄▄▄▄▄▄▄▄▄▄▄
+                     ▄█▀▀         ▀▀█▄
+                    █▌   ✕       ✕   ▐█
+                    █▌               ▐█
+                     ▀█▄▄  ▄▄▄▄▄  ▄▄█▀
+                        ▀▀▀▀▀▀▀▀▀▀▀
+"""
+
+
+
+
+def barra (actual, maximo, ancho):
+  # Devuelve una barra de progreso en texto, por ejemplo [████░░░░]
+  if actual < 0:
+    actual = 0
+  llenos = int((actual / maximo) * ancho)
+  return "[" + "█" * llenos + "░" * (ancho - llenos) + "]"
+
+
+def mostrar_estado (persona, enemigo):
+  # Panel con las barras de vida y voluntad de los dos combatientes
+  print("  ┌─────────────────────────────────────────────────┐")
+  print(f"  │ TU     VIDA     {barra(persona['vida'], persona['vida_max'], 20)} {int(persona['vida']):>4}/{persona['vida_max']:<4}│")
+  print(f"  │        VOLUNTAD {barra(persona['energia'], persona['energia_max'], 20)} {int(persona['energia']):>4}/{persona['energia_max']:<4}│")
+  print("  ├─────────────────────────────────────────────────┤")
+  print(f"  │ {enemigo['nombre'].upper():<8} VIDA   {barra(enemigo['vida'], enemigo['vida_max'], 20)} {int(enemigo['vida']):>4}/{enemigo['vida_max']:<4}│")
+  print("  └─────────────────────────────────────────────────┘")
 
 
 def ataque_personaje (ataques):
@@ -43,7 +141,7 @@ def vida (persona):
 
 
 def comportamiento_villanos (villanos):
-  golpe = r.randint(1, 3)
+  golpe = r.randint(1, 4)
   if golpe == 1:
     golpe_villano = r.randint(villanos['daño_min'], villanos['daño_max'])
     print(f"{villanos['nombre']} descarga un golpe: {golpe_villano} de daño")
@@ -52,6 +150,10 @@ def comportamiento_villanos (villanos):
     golpe_villano = r.randint(villanos['daño_min'], villanos['daño_max'])
     golpe_villano = golpe_villano * 0.5 + golpe_villano
     print(f"¡{villanos['nombre']} ataca con todo! {golpe_villano} de daño")
+    return golpe_villano
+  elif golpe == 3:
+    golpe_villano = r.randint(villanos['daño_min'], villanos['daño_max'])
+    print(f"{villanos['nombre']} descarga un golpe: {golpe_villano} de daño")
     return golpe_villano
   else:
     print(villanos['resiste'])
@@ -65,6 +167,7 @@ Bane = {
     "entrada": "Bane, el Quebrantador, bloquea la Primera Puerta.\nFue el primer mortal en firmar. Ya no queda nada humano bajo la máscara.",
     "resiste": "Bane se resiste a tu ataque.",
     "caida": "La Primera Puerta se abre. Lo que hay detrás no es una salida.",
+    "arte": ARTE_BANE,
     "vida": 200,
     "vida_max": 200,
     "daño_min": 10,
@@ -77,6 +180,7 @@ Azazel = {
     "entrada": "Azazel, señor de la ceniza, extiende lo que le queda de alas.\nSe le encargó cargar las culpas ajenas. Volvió del desierto sin ganas de devolver nada.",
     "resiste": "Azazel se cubre con las alas quemadas y no ataca.",
     "caida": "La Segunda Puerta cede. Desde aquí ya se intuye la superficie.",
+    "arte": ARTE_AZAZEL,
     "vida": 300,
     "vida_max": 300,
     "daño_min": 40,
@@ -89,10 +193,11 @@ Mephisto = {
     "entrada": "Mephisto no guarda la Tercera Puerta.\nMephisto ES la Tercera Puerta. Y sonríe al reconocer sus propias armas.",
     "resiste": "Mephisto se aparta sin prisa. Sabe que tiene toda una eternidad.",
     "caida": "Mephisto cae. La Tercera Puerta se abre y se ve la superficie.",
+    "arte": ARTE_MEPHISTO,
     "vida": 400,
     "vida_max": 400,
     "daño_min": 70,
-    "daño_max": 100
+    "daño_max": 90
 }
 
 persona = {
@@ -133,9 +238,7 @@ villanos = [Bane, Azazel, Mephisto]
 
 
 while True:
-  print("=" * 70)
-  print("EL PACTO DE LAS TRES PUERTAS")
-  print("=" * 70)
+  print(BANNER)
   print("Moriste con una deuda sin saldar, y en el fondo del Abismo alguien")
   print("te ofreció un trato. Aceptaste. Lo primero que entregaste fue tu nombre.")
   print("Despiertas con 500 latidos de vida prestada y 500 de voluntad.")
@@ -152,6 +255,7 @@ while True:
 
   for enemigo in villanos:
     print("\n" + "-" * 70)
+    print(enemigo['arte'])
     print(enemigo['entrada'])
     print(f"{enemigo['nombre']} · {enemigo['titulo']} · {enemigo['vida']} latidos")
     print("-" * 70)
@@ -163,6 +267,9 @@ while True:
       persona['energia'] += 40
       if persona['energia'] > persona['energia_max']:
         persona['energia'] = persona['energia_max']
+
+      print("")
+      mostrar_estado(persona, enemigo)
 
       print("\n¿Qué quieres hacer?")
       print("1. Invocar un arma")
@@ -227,7 +334,8 @@ while True:
         print(f"Te quedan {persona['vida']} latidos")
 
     if persona['vida'] <= 0:
-        print("\nLa deuda queda sin saldar.")
+        print(ARTE_DERROTA)
+        print("La deuda queda sin saldar.")
         print("El Abismo cobra lo que le corresponde. FIN DEL JUEGO.")
         derrota = True
         break
@@ -237,9 +345,9 @@ while True:
   if derrota:
       while True:
         continuar = input("¿Vuelves a bajar? s/n ").lower()
-        if continuar == "s" or continuar == "n":
-          break
-        print("Responda s o n")
+      if continuar == "s" or continuar == "n":
+        break
+      print("Responda s o n")
 
       if continuar == "n":
         print("\nDices que no.")
@@ -247,7 +355,7 @@ while True:
         break
 
   if enemigo['vida'] <= 0:
-    print("\n" + "=" * 70)
+    print(ARTE_VICTORIA)
     print("Cruzas la Tercera Puerta y ves la superficie.")
     print("Ves, también, que las puertas se cierran otra vez a tu espalda.")
     print()
