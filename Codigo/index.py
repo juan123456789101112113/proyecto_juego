@@ -92,7 +92,7 @@ Mephisto = {
     "vida": 400,
     "vida_max": 400,
     "daño_min": 70,
-    "daño_max": 100
+    "daño_max": 90
 }
 
 persona = {
