@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #Juan Esteban Barsenas Rivas, Jessica Benitez Carmona
 
 import random as r
