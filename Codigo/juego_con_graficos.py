@@ -411,7 +411,7 @@ while True:
           break
         print("Responda s o n")
 
-        if continuar == "n":
+      if continuar == "n":
           print("\nDices que no.")
           print("Nadie sabe qué pasa cuando alguien dice que no. Nunca había ocurrido.")
           break
