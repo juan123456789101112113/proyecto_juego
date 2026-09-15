@@ -326,10 +326,6 @@ while True:
 
       cubierto = False
 
-      persona['energia'] += 40
-      if persona['energia'] > persona['energia_max']:
-        persona['energia'] = persona['energia_max']
-
       print("")
       mostrar_estado(persona, enemigo)
 
@@ -394,6 +390,10 @@ while True:
         if persona['vida'] < 0:
           persona['vida'] = 0
         print(f"Te quedan {persona['vida']} latidos")
+
+      persona['energia'] += 40
+      if persona['energia'] > persona['energia_max']:
+        persona['energia'] = persona['energia_max']
 
     if persona['vida'] <= 0:
         print(ARTE_DERROTA)
